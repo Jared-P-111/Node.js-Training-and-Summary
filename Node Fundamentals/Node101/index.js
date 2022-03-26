@@ -2,8 +2,25 @@ const fs = require('fs') //<-- (fileSystem management)
 const http = require('http') //<-- (server)
 const url = require('url') //<-- (Routing management)
 
-//This is top level code and is not ran for each request. We are storing the 
+//This is top level code and is not ran for each request. It is loaded on inital request but afterwards 
+//only the server respsonds and is running. We are storing the 
 //data here so it isn't read each time the server has to do a return response. 
+
+const replaceTemplate = (template, product) => {
+    let output = template.replace(/{%PRODUCTNAME%}/g, product.productName)
+    output = output.replace(/{%QUANTITY%}/g, product.quantity)
+    output = output.replace(/{%PRICE%}/g, product.price)
+    output = output.replace(/{%FROM%}/g, product.from)
+    output = output.replace(/{DESCRIPTION}/g, product.description)
+    output = output.replace(/{ID}/g, product.id)
+    output = output.replace(/{NUTRIENTS}/g, product.nutrients)
+    output = output.replace(/{IMAGE}/g, product.image)
+    if(!product.organic) output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic")
+    return output;
+}
+
+//Helper function: This function will map over the data that was paresed to javascript object. It will
+//swap the text that is maintaining the {%PLACE_HOLDERS%}.
 
 //HTML Templates
 const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`, 'utf-8');
@@ -26,6 +43,9 @@ const server = http.createServer((request, response) => {
     if(pathName === '/' || pathName === '/overview'){
         //Tells browser what type of content its recieving (Headers)
         response.writeHead(200, {'content-type': 'text/html'})
+
+        const cardsHtml = dataObj.map(element => replaceTemplate(tempCard, element)) 
+        console.log(cardsHtml);
         response.end(tempOverview);
 
     //Product Page
