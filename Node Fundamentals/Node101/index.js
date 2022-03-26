@@ -7,14 +7,14 @@ const url = require('url') //<-- (Routing management)
 //data here so it isn't read each time the server has to do a return response. 
 
 const replaceTemplate = (template, product) => {
-    let output = template.replace(/{%PRODUCTNAME%}/g, product.productName)
+    let output = template.replace(/{%PRODUCT_NAME%}/g, product.productName)
     output = output.replace(/{%QUANTITY%}/g, product.quantity)
     output = output.replace(/{%PRICE%}/g, product.price)
     output = output.replace(/{%FROM%}/g, product.from)
-    output = output.replace(/{DESCRIPTION}/g, product.description)
-    output = output.replace(/{ID}/g, product.id)
-    output = output.replace(/{NUTRIENTS}/g, product.nutrients)
-    output = output.replace(/{IMAGE}/g, product.image)
+    output = output.replace(/{%DESCRIPTION%}/g, product.description)
+    output = output.replace(/{%ID%}/g, product.id)
+    output = output.replace(/{%NUTRIENTS%}/g, product.nutrients)
+    output = output.replace(/{%IMAGE%}/g, product.image)
     if(!product.organic) output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic")
     return output;
 }
