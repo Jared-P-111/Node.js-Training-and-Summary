@@ -34,10 +34,13 @@ const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8')
 //Javascript Object 
 const dataObj = JSON.parse(data);//<- Becomes a javascript object.
 
-//This createServer gets ran each time there is a request from a client
+//This createServer gets ran each time there is a request from a client browser
 //-- SERVER --
-const server = http.createServer((request, response) => {
-    const pathName = request.url;
+
+const server = http.createServer((req, response) => {
+    console.log(url.parse(req.url, true));
+    const pathName = req.url;
+    
 
     //  -- ROUTING -- 
     //Overview Page
