@@ -38,27 +38,28 @@ const dataObj = JSON.parse(data);//<- Becomes a javascript object.
 //-- SERVER --
 
 const server = http.createServer((req, response) => {
-    console.log(url.parse(req.url, true));
-    const pathName = req.url;
+    const myUrl = new URL(req.url, "http:localhost:8000/")
+    const id = myUrl.searchParams.get('id');
+    const pathname = myUrl.pathname;
     
-
     //  -- ROUTING -- 
     //Overview Page
-    if(pathName === '/' || pathName === '/overview'){
+    if(pathname === '/' || pathname === '/overview'){
         //Tells browser what type of content its recieving (Headers)
         response.writeHead(200, {'content-type': 'text/html'})
-
         const cardsHtml = dataObj.map(element => replaceTemplate(tempCard, element)).join('');
         const output = tempOverview.replace('{%PRODUCT_CARDS%}', cardsHtml);
-
         response.end(output);
 
     //Product Page
-    } else if (pathName === '/product'){
-        response.end('This is the product page!');
+    } else if (pathname === '/product'){
+        response.writeHead(200, {'content-type': 'text/html'})
+        const product = dataObj[id]
+        const output = replaceTemplate(tempProduct, product);
+        response.end(output);
 
     //A P I
-    } else if (pathName === '/api'){
+    } else if (pathname === '/api'){
         //Notice we are accessing the file with the __dirname this is more or less industry standard. instead of the ( . )
             response.writeHead(200, {'content-type': 'application/json'})
             response.end(data);
@@ -74,7 +75,7 @@ const server = http.createServer((req, response) => {
     }
 })
 
-//This creates a listener between the browser and the backend. 
+//This create8s a listener between the browser and the backend. 
 server.listen(8000, '127.0.0.1', () => {
     console.log('Listening on port 8000');
 })
