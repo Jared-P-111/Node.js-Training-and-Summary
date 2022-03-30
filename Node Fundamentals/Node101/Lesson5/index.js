@@ -1,27 +1,9 @@
 const fs = require('fs') //<-- (fileSystem management)
 const http = require('http') //<-- (server)
 const url = require('url') //<-- (Routing management)
-
-//This is top level code and is not ran for each request. It is loaded on inital request but afterwards 
-//only the server respsonds and is running. We are storing the 
-//data here so it isn't read each time the server has to do a return response. 
-
-const replaceTemplate = (template, product) => {
-    let output = template.replace(/{%PRODUCT_NAME%}/g, product.productName)
-    output = output.replace(/{%QUANTITY%}/g, product.quantity)
-    output = output.replace(/{%PRICE%}/g, product.price)
-    output = output.replace(/{%FROM%}/g, product.from)
-    output = output.replace(/{%DESCRIPTION%}/g, product.description)
-    output = output.replace(/{%ID%}/g, product.id)
-    output = output.replace(/{%NUTRIENTS%}/g, product.nutrients)
-    output = output.replace(/{%IMAGE%}/g, product.image)
-
-    if(!product.organic) output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic")
-    return output;
-}
-
-//Helper function: This function will map over the data that was paresed to javascript object. It will
-//swap the text that is maintaining the {%PLACE_HOLDERS%}.
+//Helper function import: This function will map over the data that was paresed to javascript object. It will
+//swap the text that is maintaining the {%PLACE_HOLDERS%}. its located in modules / replaceTemplate.js
+const replaceTemplate = require('./modules/replaceTemplate')
 
 //HTML Templates
 const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`, 'utf-8');

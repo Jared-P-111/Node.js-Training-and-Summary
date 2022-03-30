@@ -1,0 +1,19 @@
+{
+  "name": "node-fundamentals",
+  "version": "1.0.0",
+  "description": "Learning Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jared-P-111/Node.js-Training-and-Summary.git"
+  },
+  "author": "Jared Pisell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jared-P-111/Node.js-Training-and-Summary/issues"
+  },
+  "homepage": "https://github.com/Jared-P-111/Node.js-Training-and-Summary#readme"
+}
