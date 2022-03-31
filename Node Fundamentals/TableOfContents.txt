@@ -4,3 +4,5 @@ Table of Contents
     Lesson 3: Routing
     Lesson 4: Building a very simple API
     Lesson 5: Brining things together (Node Farm)
+    Lesson 6: Understanding Callback hell in Node.js
+    
