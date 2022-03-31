@@ -1,6 +1,13 @@
+//Core modules
 const fs = require('fs') //<-- (fileSystem management)
 const http = require('http') //<-- (server)
 const url = require('url') //<-- (Routing management)
+
+//Third Party Modules
+//Changes last part of the URL which considered the slug.This makes it custom for identiy for the website
+const slugify = require('slugify');
+
+//Our Local Modules
 //Helper function import: This function will map over the data that was paresed to javascript object. It will
 //swap the text that is maintaining the {%PLACE_HOLDERS%}. its located in modules / replaceTemplate.js
 const replaceTemplate = require('./modules/replaceTemplate')
